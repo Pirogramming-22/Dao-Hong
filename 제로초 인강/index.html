@@ -4,14 +4,26 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" type="image/xi-con" href="./favicon.ico">
-    <titme>Naver</titme>
+    <title>Naver</title>
     <style>
+        html, body{
+            margin: 0;
+            padding: 0;
+        }
         #wrap{
             text-align: center;
         }
         #wrap-center{
-            width = 1280px;
+            width: 1280px;
+            display: inline-block;
             background-color: yellow;
+        }
+        #header-hamburger{
+            margin-top: 18px;
+            background-color: blue;
+            width: 46px;
+            height: 46px;
+
         }
         #main{
             height: 2000px;
@@ -22,7 +34,11 @@
 <body>
     <div id = "wrap">
         <div id="wrap-center">
-            <div id="header"></div>
+            <div id="header">
+                <div id="header-hamburger">
+                    
+                </div>
+            </div>
             <div id="search"></div>
             <div id="nav"></div>
             <div id="main"></div>
