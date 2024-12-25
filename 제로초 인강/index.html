@@ -532,9 +532,6 @@
                     border-radius: 8px;
                     margin-bottom: 16px;
                 }
-                #main-newstand{
-                    height: 426px;
-                }
                 #main-shopping{
                     height: 560px;
                 }
@@ -617,11 +614,97 @@
                 #main-stock{
                     height: 236px;
                 }
+                #main-newsstand{
+                    height: 426px;
+                    display: flex;
+                    flex-flow: column;
+                }
+                #main-newsstand-top{
+                    flex: 1;
+                    padding: 18px 20px;
+                }
+                #main-newsstand header{
+                    font-size: 1.6rem;
+                    color: rgba(8,8,8,.5);
+                    display: flex;
+                    justify-content: flex-start;
+                }
+                #main-newsstand header .bold{
+                    font-weight: bold;
+                    color: black;
+                }
+                #main-newsstand-gray{
+                    display: flex;
+                    justify-self: flex-start;
+                }
+                #main-newsstand a{
+                    text-decoration: none;
+                }
+                #main-newsstand a:visited{
+                    color: inherit;
+                }
+                #main-newsstand a:hover{
+                    text-decoration: underline;
+                }
+                #main-newsstand footer{
+                    border-top: 1px solid var(--color_border_in);
+                    padding: 10px 0 11px;
+                }
             </style>
             <div id="main">
                 <div id="main-left">
                     <aside id="main-left-ad"></aside>
-                    <section id="main-newstand"></section>
+                    <section id="main-newsstand">
+                        <div id="main-newsstand-top">
+                            <header>
+                                <a href="#">뉴스스탠드</a>
+                                <a href="#">언론사 편집</a>
+                                <a href="#">엔터</a>
+                                <a href="#">스포츠</a>
+                                <a href="#">경제</a>
+                            </header>
+                            <div>
+                                <div id="main-newsstand-gray">
+                                <a href="#">전체언론사</a>
+                                <a href="#">연합뉴스</a>
+                                <a href="#">배고파요배고파요배고파요배고파요배고파요배고파요배고파요배고파요배고파요배고파요배고파요배고파요배고파요</a>
+                                </div>
+                                <div>
+                                <a href="#">뉴스 스탠드</a>
+                                <a href="#">뉴스홈</a>
+                                </div> 
+                            </div>
+                            <div id="main-newsstand-grid">
+                                <div>언론사</div>
+                                <div>언론사</div>
+                                <div>언론사</div>
+                                <div>언론사</div>
+                                <div>언론사</div>
+                                <div>언론사</div>
+                                <div>언론사</div>
+                                <div>언론사</div>
+                                <div>언론사</div>
+                                <div>언론사</div>
+                                <div>언론사</div>
+                                <div>언론사</div>
+                                <div>언론사</div>
+                                <div>언론사</div>
+                                <div>언론사</div>
+                                <div>언론사</div>
+                                <div>언론사</div>
+                                <div>언론사</div>
+                                <div>언론사</div>
+                            </div>
+                            <div></div>
+                            <footer>
+                                <button><span class="blind">이전</span></button>
+                                <div>언론사 더보기 1페이지 전체 /4</div>
+                                <button><span class="blind">다음</span></button>
+                                <button><span class="blind">목록보기</span></button>
+                                <button><span class="blind">격자보기</span></button>
+                            </footer>
+                        </div>
+                    </section>
                     <section id="main-shopping"></section>
                 </div>
                 <div id="main-right">
@@ -638,6 +721,7 @@
                     <section id="main-weather" class="main-weather-and-stock">
                         <header>날씨</header>
                         <div></div>
+                        <footer></footer>
                     </section>
                     <section id="main-stock" class="main-weather-and-stock">
                         <header>증시</header>
