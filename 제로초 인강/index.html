@@ -219,6 +219,9 @@
                     margin-right: 12px;
                     display: inline-block;
                 }
+                #search > form:hover{
+                    box-shadow: 0 2px 4px 0 rgba(0,0,0,0.12);
+                }
                 #search-svg{
                     display: inline-flex;
                     justify-content: center;
@@ -242,6 +245,12 @@
                     border: none;
                     outline: none;
                 }
+                #search-input::placeholder{
+                    color: white;
+                }
+                #search-input:focus::placeholder{
+                    color: #e4e4e4
+                }
                 #search-right{
                     flex:1;
                     display: flex;
@@ -263,6 +272,10 @@
                     width: 24px;
                     height: 14px;
                 }
+                #search-keybpard:hover::before{
+                    filter: brightness(0.7);
+
+                }
                 #search-recent::before{
                     content: "";
                     display: block;
@@ -273,7 +286,15 @@
                     width: 10px;
                     height: 6px;
                 }
-                #search-button::before{
+                #search-button{
+                    padding: 17px 24px 16px 10px;
+                }
+                #search-button > div{
+                    background: #03c75a;
+                    width: 25px;
+                    height: 25px;
+                }
+                #search-button > div::before{
                     content: "";
                     display: inline-block;
                     background-image: url(https://pm.pstatic.net/resources/asset/sp_main.eae24523.png);
@@ -290,7 +311,7 @@
                     <svg fill="none" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" ><path d="M16.273 12.845 7.376 0H0v24h7.727V11.155L16.624 24H24V0h-7.727v12.845z"></path></svg>
                 </a>
                     <label for="search-input" class="blind">검색어 입력</label>
-                    <input id="search-input" type="text" placeholder="검색어를 입력하세요.">
+                    <input id="search-input" type="text" placeholder="검색어를 입력해주세요.">
                     <div id="search-right">
                         <button href="#" id="search-keyboard">
                             <span class="blind">입력도구</span>
