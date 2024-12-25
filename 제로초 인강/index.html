@@ -623,6 +623,37 @@
                     flex: 1;
                     padding: 18px 20px;
                 }
+                #main-newsstand-top .dot:before{
+                    content:'';
+                    display: inline-block;
+                    width: 4px;
+                    height: 4px;
+                    background-color: #d3d5d7;
+                    background-color: var(--color_dot_divider);
+                    margin: 9px 7px 0;
+                    border-radius: 50%;
+                    vertical-align: 5px;
+                }
+                #main-newsstand-top .slash, #main-newsstand-top .dot{
+                    color: rgba(8,8,8,.5);
+                    font-weight: 800px;
+                }
+                #main-newsstand-top .slash{
+                    position: relative;
+                    padding-left: 26px;
+                }
+                #main-newsstand-top .slash:before{
+                    content:'';
+                    display: inline-block;
+                    position: absolute;
+                    top: 4px;
+                    left: 13px;
+                    width: 1px;
+                    height: 15px;
+                    background-color:#d3d5d7;
+                    background-color: var(--color_dot_divider);
+                    transform: skewX(-15deg);
+                }
                 #main-newsstand header{
                     font-size: 1.6rem;
                     color: rgba(8,8,8,.5);
@@ -643,6 +674,8 @@
                     padding: 12px 20px;
                     background-color: var(--color_option_bg);
                     border-radius: 4px;
+                    font-size: 1.4rem;
+                    line-height:
                 }
                 #main-newsstand a{
                     text-decoration: none;
@@ -690,10 +723,10 @@
                         <div id="main-newsstand-top">
                             <header>
                                 <a href="#" class="bold">뉴스스탠드</a>
-                                <a href="#">언론사 편집</a>
-                                <a href="#">엔터</a>
-                                <a href="#">스포츠</a>
-                                <a href="#">경제</a>
+                                <a href="#" class="dot">언론사 편집</a>
+                                <a href="#"class="slash">엔터</a>
+                                <a href="#"class="slash">스포츠</a>
+                                <a href="#"class="slash">경제</a>
                             </header>
                             <div>
                                 <div id="main-newsstand-gray">
