@@ -460,20 +460,18 @@
                 #main-left-ad, #main-right-ad {
                     background-color: gray;
                 }
-                aside[id$=ad] {  
+                aside[id$=ad] /*ad로 아이디가 끝난것들*/ {  
                     border-radius: 8px;
                     margin-bottom: 16px;
                 }
                 #main-left-ad {
                     height: 130px;
                 }
-                section[id^=main] {
+                section[id^=main] /*main으로 아이디가 시작하는것들*/{
                     box-shadow: 0 0 0 1px #e3e5e8, 0 1px 2px 0 rgba(0,0,0,.04);
                     border-radius: 8px;
                     margin-bottom: 16px;
-                }
-                #main-shopping {
-                    height: 560px;
+
                 }
                 #main-login {
                     height: 164px;
@@ -556,12 +554,12 @@
                     display: flex;
                     flex-flow:column
                 }
-                #main-newstand-top {
+                #main-newstand-top, #main-shopping-top {
                     flex: 1;
                     padding: 15px 20px;
                 }
                 #main-newstand-top .dot::before {
-                    content: '';
+                    content: "";
                     display: inline-block;
                     width: 4px;
                     height: 4px;
@@ -571,16 +569,15 @@
                     border-radius: 50%;
                     vertical-align: 5px;
                 }
-                #main-newstand-top .slash, #main-newstand-top .dot {
-                    color: rgba(8, 8, 8, .5);
-                    font-weight: 800;
+                .left-section .slash, .left-section .dot {
+                    color: rgba(8,8,8,.5);
                 }
-                #main-newstand-top .slash {
+                .left-section .slash {
                     position: relative;
                     padding-left: 26px;
                 }
-                #main-newstand-top .slash::before {
-                    content: '';
+                .left-section .slash::before {
+                    content: "";
                     display: inline-block;
                     position: absolute;
                     top: 4px;
@@ -593,15 +590,16 @@
                     -ms-transform: skewX(-15deg);
                     transform: skewX(-15deg);
                 }
-                #main-newstand header {
-                    font-size: 1.2rem;
+                .left-section header {
+                    font-size: 1.4rem;
                     color: rgba(8,8,8,.5);
                     display: flex;
                     justify-content: flex-start;
                     line-height: 23px;
                     margin-bottom: 17px;
+
                 }
-                #main-newstand header .bold {
+                .left-section header .bold {
                     font-weight: bold;
                     color: black;
                 }
@@ -638,6 +636,7 @@
                     padding-left: 25px;
                     position: relative;
                     display:  flex;
+
                 }
                 #main-newstand-animation::before {
                     content: "";
@@ -692,13 +691,13 @@
                     background-color: #d3d5d7;
                     background-color: var(--color_dot_divider);
                 }
-                #main-newstand a {
+                .left-section a {
                     text-decoration: none;
                 }
-                #main-newstand a:visited{
+                .left-section a:visited{
                     color: inherit;
                 }
-                #main-newstand a:hover {
+                .left-section a:hover {
                     text-decoration: underline;
                 }
                 #main-newstand-grid {
@@ -709,8 +708,8 @@
                     width: 790px;
                     grid-gap:1px;
                     background-color: var(--color_border_in);
-                    grid-template-rows: repeat(4,1fr); 
-                    grid-template-columns: repeat(6,1fr); 
+                    grid-template-rows: repeat(4,1fr);
+                    grid-template-columns: repeat(6,1fr);
                     border: 1px solid var(--color_border_in);
                     border-radius: 4px;
                     margin-top: 18px;
@@ -722,7 +721,7 @@
                     justify-content: center;
                     align-items: center;
                 }
-                #main-newstand footer {
+                .left-section footer {
                     border-top: 1px solid var(--color_border_in);
                     padding: 10px 0 11px;
                     font-size: 1rem;
@@ -733,13 +732,14 @@
                     display: flex;
                     justify-content: center;
                     position: relative;
+
                 }
                 #main-newstand footer .list, #main-newstand footer .grid {
                     position: absolute;
                     border: none;
                     cursor: pointer;
                 }
-                #main-newstand footer .prev, #main-newstand footer .next {
+                .left-section footer .prev, .left-section footer .next {
                     background: none;
                     border: none;
                     content: "";
@@ -757,10 +757,10 @@
                     vertical-align: top;
                     cursor: pointer;
                 }
-                #main-newstand footer .prev::before{
+                .left-section footer .prev::before{
                     transform: rotate(180deg);
                 }
-                #main-newstand footer .prev::before, #main-newstand footer .next::before {
+                .left-section footer .prev::before, .left-section footer .next::before {
                     content: "";
                     display: block;
                     position: absolute;
@@ -775,25 +775,92 @@
                     width: 10px;
                     height: 12px;
                     margin: auto;
-                }#main-newstand footer .text {
-                    padding: -1px 16px;
-                    width: 156px;
+                    
                 }
-                #main-newstand footer .news {
+                .left-section footer .text {
+                    padding: -1px 16px;
+                    min-width: 156px;
+                }
+                .left-section footer .hot {
+                    color: #9858f5;
+                }
+                .left-section footer .news {
                     color: var(--color_news);
                 }
-                #main-newstand footer .total{
+                .left-section footer .total{
                     color: rgba(96, 96, 96, .5);
                 }
+                #main-shopping {
+                    height: 560px;
+                    display: flex;
+                    flex-flow: column;
+                }
+                #main-shopping-top {
+                    padding-top: 19px;
+                }
+                #main-shopping footer .text {
+                    min-width: 200px;
+                }
+                #main-shopping-gray {
+                    display: flex;
+                }
+                #main-shopping-gray .left {
+                    width: 668px;
+                    height: 50px;
+                    padding: 15px 20px 14px;
+                    display: flex;
+                    background-color: var(--color_option_bg);
+                }
+                #main-shopping-gray .right {
+                    margin-left: auto;
+                    padding: 10px 0;
+                }
                 #main-shopping-grid {
-                    margin-top: 20px;
+                    margin-top: 18px;
                     display: grid;
-                    grid-template-rows: 90px 95px 185px;
+                    grid-template-rows: 90px 95px 170px;
                     grid-template-columns: 1fr 1fr 1fr 1fr 250px;
                     column-gap: 20px;
                 }
+                #main-shopping-grid, .item {
+                    line-height: 20px;
+                    letter-spacing: -.8px;
+                    font-size: 0.9rem;
+                }
+                #main-shopping-grid, .item > .image {
+                    width: 115px;
+                    height: 115px;
+                    border-radius: 4px;
+                    background-color: gray;
+                    margin-bottom: 10px;
+                }
+                #main-shopping-grid, .item > .text {
+                    text-align: left;
+                }
                 .item:nth-child(1), .item:nth-child(2), .item:nth-child(3), .item:nth-child(4) {
-                    grid-row: 1 / span 2;
+                    grid-row : 1 / span 2;
+
+                }
+                .item:nth-child(5), .item:nth-child(6), .item:nth-child(11) > div:first-child {
+                    padding: 10px 12px 5px;
+                    border-radius: 4px;
+                    border: 1px solid rgba(0,0,0,.05);
+                    background: rgba(245, 248, 251, .6);
+                }
+                .item:nth-child(6) {
+                     margin: 11px 0;
+                }
+                .item:nth-child(11) > div:first-child {
+                    height: 135px;
+                    margin-bottom: 10px;
+                }
+                .left-section header {
+                    font-size: 1.2rem;
+                    color: rgba(8,8,8,.5);
+                    display: flex;
+                    justify-content: flex-start;
+                    line-height: 23px;
+                    margin-bottom: 17px;
                 }
             </style>
         
@@ -801,7 +868,7 @@
                 <div id="main-left">
                     <aside id="main-left-ad">
                     </aside>
-                    <section id="main-newstand">
+                    <section id="main-newstand" class="left-section">
                         <div id="main-newstand-top">
                             <header>
                                 <a href="#" class="bold">뉴스스탠드</a>
@@ -848,6 +915,7 @@
                                 <div>언론사</div>
                                 <div>언론사</div>
                                 <div>언론사</div>
+
                             </div>
                         </div>
                         <footer>
@@ -858,7 +926,6 @@
                             <button class="grid"><span class="blind">격자보기</span></button>
                         </footer>
                     </section>
-                    <section id="main-shopping">
                     <section id="main-shopping" class="left-section">
                         <div id="main-shopping-top">
                             <header>
@@ -871,19 +938,55 @@
                                 <div class="left">
                                     <a href="#">오늘의 혜택</a>
                                     <div id="main-newstand-animation">
-                                        <a href="#">asdfadfsadfasdfasdfasdfasdfasdf</a>
+                                        <a href="#">ㄴㅇㅁ리ㅏㅓㄴ러ㅣㄴㅁ;ㅏ얾너;ㅣㅏ어란머;ㅇㄹ미ㅓㄴㅇ;리먼;이ㅓㄹ미;ㄴ어림ㄴ얼;ㅣㅁ넝리ㅏㅓㅏㅣ너미라ㅓㄴㅁㅇ</a>
                                     </div>
                                 </div>
                                 <div class="right">
                                     <span>1</span>
                                     <span>/18</span>
                                     <button class="prev"><span class="blind">이전페이지</span></button>
-                                    <button class="next"><span class="blind">ekdma페이지</span></button>
-                                    
+                                    <button class="next"><span class="blind">다음페이지</span></button>
                                 </div>
                             </div>
                             <div id="main-shopping-grid">
-                    
+                                <div class="item">
+                                    <div class="image"></div>
+                                    <div class="text">독보적인 퀄리티 우린품격을입어요</div>
+                                </div>
+                                <div class="item">
+                                    <div class="image"></div>
+                                    <div class="text">독보적인 퀄리티 우린품격을입어요</div>
+                                </div>
+                                <div class="item">
+                                    <div class="image"></div>
+                                    <div class="text">독보적인 퀄리티 우린품격을입어요</div>
+                                </div>
+                                <div class="item">
+                                    <div class="image"></div>
+                                    <div class="text">독보적인 퀄리티 우린품격을입어요</div>
+                                </div>
+                                <div class="item">5</div>
+                                <div class="item">6</div>
+                                <div class="item">
+                                    <div class="image"></div>
+                                    <div class="text">독보적인 퀄리티 우린품격을입어요</div>
+                                </div>
+                                <div class="item">
+                                    <div class="image"></div>
+                                    <div class="text">독보적인 퀄리티 우린품격을입어요</div>
+                                </div>
+                                <div class="item">
+                                    <div class="image"></div>
+                                    <div class="text">독보적인 퀄리티 우린품격을입어요</div>
+                                </div>
+                                <div class="item">
+                                    <div class="image"></div>
+                                    <div class="text">독보적인 퀄리티 우린품격을입어요</div>
+                                </div>
+                                <div class="item">
+                                    <div></div>
+                                    <div>아웃렛 쇼핑 득템찬스! 시즌오프SALE</div>
+                                </div>
                             </div>
                         </div>
                         <footer>
@@ -891,7 +994,6 @@
                             <div class="text"><span class="hot">쇼핑핫아이템</span> &nbsp;더보기1<span class="total">/18</span></div>
                             <button class="next"><span class="blind">다음 페이지</span></button>
                         </footer>
-                    </section>
                     </section>
                 </div>
                 <div id="main-right">
