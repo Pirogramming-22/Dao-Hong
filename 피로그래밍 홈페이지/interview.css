@@ -150,15 +150,14 @@ button{
     font-size: var(--heading3);
 }
 
-.section-prev,
 .section-next {
     font-size: var(--body1);
 }
 
-
 .project-container {
     width: 100%;
-    max-width: 1120px;
+    max-width: 350px;
+    height: 137px;
     background-color: var(--bg-gray);
     border-radius: 10px;
     cursor: pointer;
@@ -172,15 +171,23 @@ button{
 }
 
 .project-container img {
-    width: 150px;
-    height: 130px;
-    border-radius: 10px;
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
     max-width: 100%;
     max-height: 100%;
+    overflow: hidden;
     transition: transform 0.3s ease;
 }
+.project-profile{
+    display: flex;
+    flex-direction: column;
+}
 .project-details{
+    display: flex;
     gap: 20px;
+    flex-direction: row;
+
 }
 .project-name{
     font-size: var(--heading3);
@@ -190,7 +197,7 @@ button{
 .project-description{
     display: flex;
     flex-direction: column;
-    color: #c6c6c6
+    color: white;
 }
 
 .project-list {
@@ -203,6 +210,7 @@ button{
 }
 .project-leader{
     background-color: var(--blue);
+    font-size: 1rem;
     font-weight: bold;
 }
 .project-mate{
@@ -354,15 +362,23 @@ button{
     #hamburger-icon {
         display: flex;
     }
-    .header-container > ul {
-        display: none;
-    }
     .footer-deep{
         justify-content: space-around;
     }
     .footer{
         flex-direction: column;
         gap: 10px;
+    }
+    .header-container > ul {
+        display: none;
+    }
+}
+
+@media (max-width: 850){
+
+    .project-container {
+        width: 100%;
+        max-width: 370px;
     }
 }
 @media (min-width: 801px) {
@@ -378,18 +394,9 @@ button{
     .footer-bottom{
         display: block;
     }
+
     .project-container {
-        flex-direction: column; /* 세로 정렬 */
-        align-items: center; /* 이미지와 텍스트를 가운데 정렬 */
-    }
-
-    .project-details {
-        text-align: center; /* 세로 정렬 시 텍스트도 가운데 정렬 */
-    }
-
-    .project-image img {
-        width: 100%; /* 이미지가 부모 너비를 가득 채우도록 설정 */
-        height: auto; /* 비율을 유지하면서 세로 크기 조정 */
-        margin-bottom: 20px; /* 이미지와 다른 요소 사이의 여백 추가 */
+        width: 100%;
+        max-width: 560px;
     }
 }
