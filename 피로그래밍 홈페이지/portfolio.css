@@ -36,10 +36,14 @@
     --header-height: 9rem;
 }
 html, body{
+    background-color: black;
     margin: 0;
     padding: 0;
-    background-color: black;
     /* cursor: none; */
+}
+
+footer{
+        margin: 0;  /* footer의 여백을 0으로 설정 */
 }
 .custom-cursor {
     position: absolute;
@@ -61,14 +65,13 @@ button{
     position: fixed;
     left: 50%;
     transform: translatex(-50%);
-    z-index:1000;
+    z-index:1;
     height: 9rem;
     width: 100%;
     font-weight: bold;
     font-size: 1.3rem;
     max-width: 1200px;
     height: 90px;
-    margin: 0 auto;
 }
 .header-container { 
     display: flex;
@@ -91,7 +94,7 @@ button{
     transition: color 0.3s ease;
     cursor: pointer;
     :hover {
-        bottom: 3px;
+        bottom: 2px;
     }
     a {
         color: white;
@@ -111,7 +114,6 @@ button{
     width: 30px;
     flex-direction: column;
 }
-
 #hamburger-icon > div {
     width: 30px;
     height: 3px;
@@ -124,32 +126,33 @@ button{
 #hamburger-icon > div:nth-of-type(3) {
     width: 70%;
 }
+
 .content {
     display: flex;
-    justify-content: center; /* project-container를 가운데 정렬 */
+    justify-content: center;
     align-items: center;
     flex-direction: column;
+    margin-bottom: 40px;
 }
+
 .section-between {
-    width: 100%;
-    max-width: 1120px;
-    margin-top: 67px;
+    margin-top: 110px;
+    margin-bottom: 20px;
     display: flex;
+    flex-direction: row;
     justify-content: space-between;
-    padding: 40px 20px;
-}
-
-.section-prev, .section-current, .section-next {
-    display: flex;
     align-items: center;
+    width: 100%;
+    max-width: 1200px;
 }
 
-.section-current {
-    font-size: 1.5rem;
+.section-currnet {
+    font-size: var(--heading3);
 }
 
+.section-prev,
 .section-next {
-    font-size: 1rem;
+    font-size: var(--body1);
 }
 
 
@@ -158,16 +161,14 @@ button{
     max-width: 1120px;
     background-color: var(--bg-gray);
     border-radius: 10px;
-    padding: var(--gutter);
-    display: flex;
-    gap: var(--gutter);
-    margin-bottom: var(--gutter);
     cursor: pointer;
     position: relative;
     align-items: center;
     display: flex;
-    justify-content: space-between;
-    padding: 40px 20px;
+    align-items: flex-start;
+    padding: var(--gutter);
+    gap: var(--gutter);
+    margin-bottom: var(--gutter);
 }
 
 .project-container img {
@@ -178,21 +179,41 @@ button{
     max-height: 100%;
     transition: transform 0.3s ease;
 }
+.project-details{
+    gap: 20px;
+}
+.project-name{
+    font-size: var(--heading3);
+    font-weight: 900;
+}
 
-.project-name, .project-description, .project-list {
-    display: flex; /* flex 컨테이너로 설정 */
-    text-align: left;
-    justify-content: center; /* 내용 가로 가운데 정렬 */
-    align-items: center; /* 내용 세로 가운데 정렬 */
+.project-description{
+    display: flex;
+    flex-direction: column;
+    color: #c6c6c6
 }
 
 .project-list {
     display: flex;
     gap: 10px;
+    justify-content: flex-start;
+    margin: 0;
+    margin-top: 20px;
+    padding: 0;
 }
-
+.project-leader{
+    background-color: var(--blue);
+    font-weight: bold;
+}
+.project-mate{
+    background-color: #ececec77;
+    color: black;
+    font-weight: 900;
+}
 .project-list li {
     list-style: none;
+    border-radius: 5px;
+    padding: 6px 8px;
 }
 
 .project-hamburger-icon {
@@ -221,7 +242,7 @@ button{
     transform: scale(1.1);
 }
 .project-hamburger-icon > div {
-    transition: width 0.3s ease, margin-left 0.3s ease; /* 자식 요소에 직접 적용 */
+    transition: width 0.3s ease, margin-left 0.3s ease;
 }
 
 .project-container:hover > .project-hamburger-icon > div:nth-of-type(1) {
@@ -233,13 +254,115 @@ button{
     margin-left: auto;
 }
 
+.footer-top{
+    display: felx;
+    justify-content: space around;
+    background-color: var(--bg-gray);
+}
+
+.footer{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 20px 20px;
+    border-top: 1px solid #f0f0f0;
+}
+
+.left{
+    gap: 5px;
+}
+
+.left-item{
+    font-size: 1rem;
+    line-height: 2rem;
+}
+
+.image-background{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    margin-left: 0;
+    background-color: black;
+}
+
+.image-background img{
+
+    width: 70%;
+    height: 70%;
+}
+
+.footer-deep ul{
+    display: flex;
+    justify-content: flex-start;
+    list-style: none;
+    gap: 10px;
+    padding: 0;
+}
+
+.footer-bottom{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 44px;
+    background-color: #1f1f1f;
+}
+
+#last-footer{
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+}
+
+#right{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.right-item{
+    position:relative;
+}
+
+.right-item::after{
+    content: "";
+    position: absolute;
+    width: 1.5px;
+    height: 20px;
+    top: 50%;
+    right: -10%;
+    transform: translateY(-50%);
+    background: var(--line-gray);
+}
+.left-item:hover, [class^="right"]:hover {
+    position: relative;
+    bottom: 2px;
+}
+.right-item:last-child::after {
+    content: none;
+    pointer-events: none;
+}
+
+
 
 @media (max-width: 800px) {
+    .footer-bottom{
+        display: none;
+    }
     #hamburger-icon {
         display: flex;
     }
     .header-container > ul {
         display: none;
+    }
+    .footer-deep{
+        justify-content: space-around;
+    }
+    .footer{
+        flex-direction: column;
+        gap: 10px;
     }
 }
 @media (min-width: 801px) {
@@ -248,5 +371,25 @@ button{
     }
     .header-container > ul {
         display: flex;
+    }
+}
+
+@media (max-width: 600px) {
+    .footer-bottom{
+        display: block;
+    }
+    .project-container {
+        flex-direction: column; /* 세로 정렬 */
+        align-items: center; /* 이미지와 텍스트를 가운데 정렬 */
+    }
+
+    .project-details {
+        text-align: center; /* 세로 정렬 시 텍스트도 가운데 정렬 */
+    }
+
+    .project-image img {
+        width: 100%; /* 이미지가 부모 너비를 가득 채우도록 설정 */
+        height: auto; /* 비율을 유지하면서 세로 크기 조정 */
+        margin-bottom: 20px; /* 이미지와 다른 요소 사이의 여백 추가 */
     }
 }
