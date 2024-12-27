@@ -134,7 +134,15 @@ button{
     flex-direction: column;
     margin-bottom: 40px;
 }
+.project-gogo{
+    display: grid;
+    width: 100%;
+    max-width: 1200px;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 30px;
+    justify-items: center;
 
+}
 .section-between {
     margin-top: 110px;
     margin-bottom: 20px;
@@ -169,7 +177,12 @@ button{
     gap: var(--gutter);
     margin-bottom: var(--gutter);
 }
-
+.img-container{
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    overflow: hidden;
+}
 .project-container img {
     width: 70px;
     height: 70px;
@@ -180,6 +193,8 @@ button{
     transition: transform 0.3s ease;
 }
 .project-profile{
+    margin-top: 10px;
+    margin-bottom: 20px;
     display: flex;
     flex-direction: column;
 }
@@ -190,11 +205,14 @@ button{
 
 }
 .project-name{
-    font-size: var(--heading3);
-    font-weight: 900;
+    font-size: 1.3rem;
+    font-weight: 800;
 }
 
 .project-description{
+    margin-top: 16px;
+    font-size: 1.1rem;
+    font-weight: 500;
     display: flex;
     flex-direction: column;
     color: white;
@@ -205,10 +223,10 @@ button{
     gap: 10px;
     justify-content: flex-start;
     margin: 0;
-    margin-top: 20px;
     padding: 0;
 }
 .project-leader{
+    margin-top: 10px;
     background-color: var(--blue);
     font-size: 1rem;
     font-weight: bold;
@@ -353,7 +371,14 @@ button{
     pointer-events: none;
 }
 
-
+@media(max-width: 1170px){
+    .project-gogo{
+        grid-template-columns: 1fr 1fr;
+    }
+    .project-container{
+        max-width: 360px;
+    }
+}
 
 @media (max-width: 800px) {
     .footer-bottom{
@@ -371,6 +396,13 @@ button{
     }
     .header-container > ul {
         display: none;
+    }
+
+    .project-gogo{
+        grid-template-columns: 1fr;
+    }
+    .project-container{
+        max-width: 1100px;
     }
 }
 
