@@ -51,12 +51,11 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     function addRecord(time) {
-        const recordRow = document.createElement("tr");
+        const recordRow = document.createElement("div");
+        recordRow.setAttribute("id", "records");
         recordRow.innerHTML = `
-            <td>
                 <input type="checkbox" name="select">
                 <span>${time}</span>
-            </td>
         `;
         recordContainer.appendChild(recordRow);
     }
@@ -65,7 +64,7 @@ document.addEventListener("DOMContentLoaded", () => {
     deleteIcon.addEventListener("click", () => {
         const selectedRecords = document.querySelectorAll('input[name="select"]:checked');
         selectedRecords.forEach(record => {
-            const parentRow = record.closest("tr");
+            const parentRow = record.closest("div");
             parentRow.remove();
         });
 
