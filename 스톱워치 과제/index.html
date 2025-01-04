@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="stopwatch.ico">
+    <title>피로그래밍 스톱워치</title>
+    <link rel="stylesheet" href="reset.css">
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
+</head>
+<body>
+    <div class="header">
+        <img src="stopwatch.svg" alt="stopwatch" id="watchicon">
+        <h1>피로그래밍 스톱워치</h1>
+    </div>
+    <div class="stopwatch__container">
+        <div class="time__container">
+            <div id="time"></div>
+        </div>
+        <div class="Btn__container">
+            <button id="startBtn" class="stopwatch__btn">START</button>
+            <button id="stopBtn" class="stopwatch__btn">STOP</button>
+            <button id="resetBtn" class="stopwatch__btn">RESET</button>
+        </div>
+    </div>
+    <div class="record__container">
+        <div class="header" id="record__header">
+            <input type="checkbox" name="select_all">
+            <h2 class="div">구간 기록</h2>
+            <img src="delete.svg" alt="delete" id="deleteicon">
+        </div>
+        <tr>
+            <!-- <input type="checkbox" name="select">
+            <td>00:00</td> -->
+        </tr>
+    </div>
+</body>
+</html>
