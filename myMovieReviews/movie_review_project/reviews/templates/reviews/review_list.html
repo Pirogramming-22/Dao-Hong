@@ -1,9 +1,9 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h1 class="my-4 text-center">Movie Reviews</h1>
+<h1 class="my-4 text-center"">Movie Reviews</h1>
 <div class="text-end mb-3">
-    <a href="{% url 'review_create' %}" class="btn btn-primary">Write a New Review</a>
+    <a href="{% url 'review_create' %}" class="btn btn-primary">새 글 쓰기</a>
 </div>
 <div class="row">
     {% for review in reviews %}
@@ -16,7 +16,7 @@
                 <h5 class="card-title">{{ review.title }}</h5>
                 <p class="card-text">{{ review.genre }} | {{ review.release_year }}</p>
                 <p class="card-text"><strong>Rating:</strong> {{ review.rating }} / 10</p>
-                <a href="{% url 'review_detail' review.pk %}" class="btn btn-outline-secondary">View Details</a>
+                <a href="{% url 'review_detail' review.pk %}" class="btn btn-outline-secondary">더보기</a>
             </div>
         </div>
     </div>

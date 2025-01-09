@@ -9,13 +9,13 @@
         {% endif %}
         <div class="card-body">
             <h2 class="card-title">{{ review.title }}</h2>
-            <p class="card-text"><strong>Director:</strong> {{ review.director }}</p>
-            <p class="card-text"><strong>Cast:</strong> {{ review.cast }}</p>
-            <p class="card-text"><strong>Genre:</strong> {{ review.genre }}</p>
-            <p class="card-text"><strong>Release Year:</strong> {{ review.release_year }}</p>
-            <p class="card-text"><strong>Runtime:</strong> {{ review.runtime_in_hours }}</p>
-            <p class="card-text"><strong>Rating:</strong> {{ review.rating }} / 10</p>
-            <p class="card-text"><strong>Review:</strong> {{ review.review_text }}</p>
+            <p class="card-text"><strong>감독:</strong> {{ review.director }}</p>
+            <p class="card-text"><strong>배우:</strong> {{ review.cast }}</p>
+            <p class="card-text"><strong>장르:</strong> {{ review.genre }}</p>
+            <p class="card-text"><strong>개봉 연도:</strong> {{ review.release_year }}</p>
+            <p class="card-text"><strong>러닝타임:</strong> {{ review.runtime_in_hours }}</p>
+            <p class="card-text"><strong>별점(10점만점):</strong> {{ review.rating }} / 10</p>
+            <p class="card-text"><strong>감상평:</strong> {{ review.review_text }}</p>
             <div class="mt-4">
                 <a href="{% url 'review_edit' review.pk %}" class="btn btn-warning">Edit</a>
                 <form action="{% url 'review_delete' review.pk %}" method="post" class="d-inline">
