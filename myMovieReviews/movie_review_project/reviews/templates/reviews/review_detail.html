@@ -1,0 +1,14 @@
+<h1>{{ review.title }}</h1>
+<p>Director: {{ review.director }}</p>
+<p>Cast: {{ review.cast }}</p>
+<p>Genre: {{ review.genre }}</p>
+<p>Release Year: {{ review.release_year }}</p>
+<p>Runtime: {{ review.runtime_in_hours }}</p>
+<p>Rating: {{ review.rating }}</p>
+<p>Review: {{ review.review_text }}</p>
+<a href="{% url 'review_list' %}">Back to Reviews</a>
+<a href="{% url 'review_edit' review.pk %}">Edit</a>
+<form method="post" action="{% url 'review_delete' review.pk %}">
+    {% csrf_token %}
+    <button type="submit">Delete</button>
+</form>

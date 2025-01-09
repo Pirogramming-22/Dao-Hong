@@ -1,0 +1,15 @@
+<h1>Movie Reviews</h1>
+<a href="{% url 'review_create' %}">Write a New Review</a>
+<div class="sorting">
+    <a href="?sort=title">Sort by Title</a> |
+    <a href="?sort=rating">Sort by Rating</a> |
+    <a href="?sort=runtime">Sort by Runtime</a>
+</div>
+
+<ul>
+    {% for review in reviews %}
+    <li>
+        <a href="{% url 'review_detail' review.pk %}">{{ review.title }}</a> - {{ review.genre }} ({{ review.release_year }})
+    </li>
+    {% endfor %}
+</ul>
