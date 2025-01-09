@@ -1,4 +1,7 @@
 <h1>{{ review.title }}</h1>
+{% if review.image %}
+    <img src="{{ review.image.url }}" alt="Review Image" style="max-width: 100%;">
+{% endif %}
 <p>Director: {{ review.director }}</p>
 <p>Cast: {{ review.cast }}</p>
 <p>Genre: {{ review.genre }}</p>

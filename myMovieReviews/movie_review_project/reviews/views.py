@@ -17,7 +17,7 @@ def review_detail(request, pk):
 # Create Review
 def review_create(request):
     if request.method == 'POST':
-        form = MovieReviewForm(request.POST)
+        form = MovieReviewForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
             return redirect('review_list')
