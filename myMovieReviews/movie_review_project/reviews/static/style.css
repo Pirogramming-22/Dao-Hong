@@ -16,3 +16,9 @@
     background-color: #0056b3;
     border-color: #004085;
 }
+
+.card{
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+}
