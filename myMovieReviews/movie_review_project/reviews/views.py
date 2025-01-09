@@ -3,18 +3,36 @@ from .models import MovieReview
 from .forms import MovieReviewForm
 from django.db.models import F
 
-# Review List
+
 def review_list(request):
-    sort_by = request.GET.get('sort', 'title')  # 기본 정렬은 'title'
-    reviews = MovieReview.objects.all().order_by(sort_by)
+    # 정렬 조건 가져오기
+    sort_option = request.GET.get('sort', 'title')  # 기본 정렬은 'title'
+    
+    # 정렬 기준 적용
+    if sort_option == 'title':
+        reviews = MovieReview.objects.order_by('title')
+    elif sort_option == 'rating':
+        reviews = MovieReview.objects.order_by('-rating')  # 평점 내림차순
+    elif sort_option == 'release_year':
+        reviews = MovieReview.objects.order_by('-release_year')  # 개봉년도 내림차순
+    else:
+        reviews = MovieReview.objects.all()  # 기본 값
+
     return render(request, 'reviews/review_list.html', {'reviews': reviews})
 
-# Review Detail
 def review_detail(request, pk):
     review = get_object_or_404(MovieReview, pk=pk)
-    return render(request, 'reviews/review_detail.html', {'review': review})
+    
+    # 러닝타임 계산 (시간과 분)
+    runtime_hours = review.runtime // 60
+    runtime_minutes = review.runtime % 60
+    
+    return render(request, 'reviews/review_detail.html', {
+        'review': review,
+        'runtime_hours': runtime_hours,
+        'runtime_minutes': runtime_minutes,
+    })
 
-# Create Review
 def review_create(request):
     if request.method == 'POST':
         form = MovieReviewForm(request.POST, request.FILES)
@@ -25,7 +43,6 @@ def review_create(request):
         form = MovieReviewForm()
     return render(request, 'reviews/review_form.html', {'form': form})
 
-# Edit Review
 def review_edit(request, pk):
     review = get_object_or_404(MovieReview, pk=pk)
     if request.method == 'POST':
@@ -37,7 +54,6 @@ def review_edit(request, pk):
         form = MovieReviewForm(instance=review)
     return render(request, 'reviews/review_form.html', {'form': form})
 
-# Delete Review
 def review_delete(request, pk):
     review = get_object_or_404(MovieReview, pk=pk)
     if request.method == 'POST':

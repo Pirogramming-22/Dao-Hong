@@ -1,10 +1,24 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h1 class="my-4 text-center"">Movie Reviews</h1>
+<h1 class="my-4 text-center">Movie Reviews</h1>
+
+<!-- 정렬 버튼 추가 -->
 <div class="text-end mb-3">
+    <div class="dropdown d-inline">
+        <button class="btn btn-secondary dropdown-toggle" type="button" id="sortDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+            정렬
+        </button>
+        <ul class="dropdown-menu" aria-labelledby="sortDropdown">
+            <li><a class="dropdown-item" href="?sort=title">제목</a></li>
+            <li><a class="dropdown-item" href="?sort=rating">평점</a></li>
+            <li><a class="dropdown-item" href="?sort=release_year">개봉년도</a></li>
+        </ul>
+    </div>
     <a href="{% url 'review_create' %}" class="btn btn-primary">글 쓰기</a>
 </div>
+
+<!-- 리뷰 카드 -->
 <div class="row">
     {% for review in reviews %}
     <div class="col-md-4">
