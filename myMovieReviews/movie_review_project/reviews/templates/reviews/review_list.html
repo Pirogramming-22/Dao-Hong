@@ -1,15 +1,25 @@
-<h1>Movie Reviews</h1>
-<a href="{% url 'review_create' %}">Write a New Review</a>
-<div class="sorting">
-    <a href="?sort=title">Sort by Title</a> |
-    <a href="?sort=rating">Sort by Rating</a> |
-    <a href="?sort=runtime">Sort by Runtime</a>
-</div>
+{% extends 'base.html' %}
 
-<ul>
+{% block content %}
+<h1 class="my-4 text-center">Movie Reviews</h1>
+<div class="text-end mb-3">
+    <a href="{% url 'review_create' %}" class="btn btn-primary">Write a New Review</a>
+</div>
+<div class="row">
     {% for review in reviews %}
-    <li>
-        <a href="{% url 'review_detail' review.pk %}">{{ review.title }}</a> - {{ review.genre }} ({{ review.release_year }})
-    </li>
+    <div class="col-md-4">
+        <div class="card mb-4">
+            {% if review.image %}
+            <img src="{{ review.image.url }}" class="card-img-top" alt="{{ review.title }}">
+            {% endif %}
+            <div class="card-body">
+                <h5 class="card-title">{{ review.title }}</h5>
+                <p class="card-text">{{ review.genre }} | {{ review.release_year }}</p>
+                <p class="card-text"><strong>Rating:</strong> {{ review.rating }} / 10</p>
+                <a href="{% url 'review_detail' review.pk %}" class="btn btn-outline-secondary">View Details</a>
+            </div>
+        </div>
+    </div>
     {% endfor %}
-</ul>
+</div>
+{% endblock %}
