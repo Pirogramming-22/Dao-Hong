@@ -1,6 +1,15 @@
-Edit Review<h1>정말로 삭제하시겠습니까? "{{ review.title }}"?</h1>
-<form method="post">
-    {% csrf_token %}
-    <button type="submit">Yes, delete</button>
-    <a href="{% url 'review_detail' review.pk %}">Cancel</a>
-</form>
+{% extends 'base.html' %}
+{% load static %}
+{% load custom_filters %}
+
+{% block content %}
+<div class="container mt-5">
+    <h1>리뷰 삭제</h1>
+    <p>정말로 "{{ review.title }}" 리뷰를 삭제하시겠습니까?</p>
+    <form method="post" class="mt-4">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger">네, 삭제합니다</button>
+        <a href="{% url 'review_detail' review.pk %}" class="btn btn-secondary">취소</a>
+    </form>
+</div>
+{% endblock %}

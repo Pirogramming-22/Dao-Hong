@@ -1,9 +1,8 @@
 {% extends 'base.html' %}
-
+{% load static %}
 {% block content %}
-<h1 class="my-4 text-center">Movie Reviews</h1>
+<h1 class="my-4 text-center">my Movie Reviews</h1>
 
-<!-- 정렬 버튼 추가 -->
 <div class="text-end mb-3">
     <div class="dropdown d-inline">
         <button class="btn btn-secondary dropdown-toggle" type="button" id="sortDropdown" data-bs-toggle="dropdown" aria-expanded="false">
@@ -18,13 +17,14 @@
     <a href="{% url 'review_create' %}" class="btn btn-primary">글 쓰기</a>
 </div>
 
-<!-- 리뷰 카드 -->
 <div class="row">
     {% for review in reviews %}
     <div class="col-md-4">
-        <div class="card mb-4">
+        <div class="card mb-4"style="height: 680px;">
             {% if review.image %}
-            <img src="{{ review.image.url }}" class="card-img-top" alt="{{ review.title }}">
+            <img src="{{ review.image.url }}" class="img-fluid rounded-start" alt="{{ review.title }}" style="width: 300px; max-height: 449px;">
+            {% else %}
+            <img src="{% static 'placeholder(1).jpg' %}" class="img-fluid rounded-start" alt="이미지 없음" style="width: 300px; height: 449px;">
             {% endif %}
             <div class="card-body">
                 <h5 class="card-title">{{ review.title }}</h5>
