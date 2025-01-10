@@ -2,6 +2,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from .models import MovieReview
 from .forms import MovieReviewForm
 from django.db.models import F
+from .utils import fetch_movie_details
 
 
 def review_list(request):
@@ -32,6 +33,14 @@ def review_detail(request, pk):
         'runtime_hours': runtime_hours,
         'runtime_minutes': runtime_minutes,
     })
+
+def fetch_movie(request):
+    """Fetch movie details based on user input."""
+    if request.method == "POST":
+        title = request.POST.get("title")
+        movie_details = fetch_movie_details(title)
+        return render(request, "reviews/movie_form.html", {"movie_details": movie_details})
+    return render(request, "reviews/movie_form.html")
 
 def review_create(request):
     if request.method == 'POST':

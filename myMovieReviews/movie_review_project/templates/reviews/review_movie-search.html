@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1 class="my-4 text-center">영화 검색</h1>
+<form method="GET" action="{% url 'review_create' %}" id="movie-search-form">
+    <input type="text" name="title" placeholder="영화 제목을 입력하세요" required>
+    <button type="submit" class="btn btn-primary">검색</button>
+</form>
+
+
+{% if fetch_movie_details %}
+<div class="card">
+    <img src="{{ movie_details.image }}" class="card-img-top" alt="{{ movie_details.title }}">
+    <div class="card-body">
+        <h5 class="card-title">{{ movie_details.title }}</h5>
+        <p><strong>개봉년도:</strong> {{ movie_details.release_year }}</p>
+        <p><strong>감독:</strong> {{ movie_details.director }}</p>
+        <p><strong>주연:</strong> {{ movie_details.main_cast }}</p>
+        <p><strong>러닝타임:</strong> {{ movie_details.runtime }}분</p>
+    </div>
+</div>
+{% endif %}
+{% endblock %}
