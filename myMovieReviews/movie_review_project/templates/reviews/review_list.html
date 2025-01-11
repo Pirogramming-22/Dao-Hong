@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<h1 class="my-4 text-center">my Movie Reviews</h1>
+
+<div class="text-end mb-3">
+    <div class="dropdown d-inline">
+        <button class="btn btn-secondary dropdown-toggle" type="button" id="sortDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+            정렬
+        </button>
+        <ul class="dropdown-menu" aria-labelledby="sortDropdown">
+            <li><a class="dropdown-item" href="?sort=title">제목</a></li>
+            <li><a class="dropdown-item" href="?sort=rating">평점</a></li>
+            <li><a class="dropdown-item" href="?sort=release_year">개봉년도</a></li>
+        </ul>
+    </div>
+    <a href="{% url 'review_create' %}" class="btn btn-primary">글 쓰기</a>
+</div>
+
+<div class="row">
+    {% for review in reviews %}
+    <div class="col-md-4">
+        <div class="card mb-4"style="height: 680px;">
+            {% if review.image %}
+            <img src="{{ review.image.url }}" class="img-fluid rounded-start" alt="{{ review.title }}" style="width: 300px; max-height: 449px;">
+            {% else %}
+            <img src="{% static 'placeholder(1).jpg' %}" class="img-fluid rounded-start" alt="이미지 없음" style="width: 300px; height: 449px;">
+            {% endif %}
+            <div class="card-body">
+                <h5 class="card-title">{{ review.title }}</h5>
+                <p class="card-text">{{ review.genre }} | {{ review.release_year }}</p>
+                <p class="card-text"><strong>Rating:</strong> {{ review.rating }} / 10</p>
+                <a href="{% url 'review_detail' review.pk %}" class="btn btn-outline-secondary">더보기</a>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}
