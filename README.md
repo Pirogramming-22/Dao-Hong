@@ -25,6 +25,10 @@
 - Django Girls 튜토리얼 따라하기
 - 나만의 영화 기록 사이트 만들기
 
+### Week 4
+- ERD CLOUD
+- Ajax 선행강의
+
 <br>
 
 ## ABOUT ME
