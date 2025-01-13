@@ -1,25 +1,42 @@
 <!doctype html>
 <html>
-  <body>
-    <article>
- 
-    </article>
-    <input type="button" value="fetch" onclick="
-      /*
+<head>
+  <title>WEB1 - Welcome</title>
+  <meta charset="utf-8">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="colors.js"></script>
+</head>
+<body>
+  <h1><a href="index.html">WEB</a></h1>
+  <input id="night_day" type="button" value="night" onclick="
+    nightDayHandler(this);
+  ">
+  <ol>
+    <li><a onclick="
       fetch('html').then(function(response){
         response.text().then(function(text){
           document.querySelector('article').innerHTML = text;
         })
-      })
-      */
-      //Asynchronous
-      fetch('html').then(function(response){
-        if(response.status == '404'){
-          alert('Not found')
-        }
       });
-      console.log(1);
-      console.log(2);
-    ">
-  </body>
+    ">HTML</a></li>
+    <li><a onclick="
+      fetch('css').then(function(response){
+        response.text().then(function(text){
+          document.querySelector('article').innerHTML = text;
+        })
+      });
+    ">CSS</a></li>
+    <li><a onclick="
+      fetch('javascript').then(function(response){
+        response.text().then(function(text){
+          document.querySelector('article').innerHTML = text;
+        })
+      });
+    ">JavaScript</a></li>
+  </ol>
+  <article>
+ 
+  </article>
+  </p>
+</body>
 </html>
