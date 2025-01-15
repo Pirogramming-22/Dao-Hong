@@ -1,26 +1,32 @@
 {% extends 'ideas/base.html' %}
 {% block content %}
-<h1>{{ devtool.name }}</h1>
-<p>{{ devtool.kind }}</p>
-<p>{{ devtool.content }}</p>
+<div class="devtool-details">
+    <h1>{{ devtool.name }}</h1>
+    <p><strong>종류:</strong> {{ devtool.kind }}</p>
+    <p><strong>설명:</strong> {{ devtool.content }}</p>
+</div>
 
-{% if ideas %}
-    <h2>이 개발 도구를 사용하는 SW 목록:</h2>
-    <ul>
-        {% for idea in ideas %}
-        <li>
-            <a href="{% url 'idea_detail' idea.id %}">{{ idea.title }}</a> - {{ idea.content | slice:":100" }}{% if idea.content|length > 100 %}...{% endif %}
-        </li>
-        {% endfor %}
-    </ul>
-{% else %}
-    <p>이 개발 도구를 사용하는 SW가 없습니다.</p>
-{% endif %}
+<div class="devtool-ideas">
+    {% if ideas %}
+        <h2>이 개발 도구를 사용하는 SW 목록</h2>
+        <ul>
+            {% for idea in ideas %}
+            <li>
+                <a href="{% url 'idea_detail' idea.id %}">{{ idea.title }}</a> - {{ idea.content|truncatewords:20 }}
+            </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>이 개발 도구를 사용하는 SW가 없습니다.</p>
+    {% endif %}
+</div>
 
-<a href="{% url 'devtool_list' %}">목록으로 돌아가기</a>
-<a href="{% url 'devtool_edit' devtool.id %}">수정</a>
-<form action="{% url 'devtool_delete' devtool.id %}" method="post" style="display: inline;">
-    {% csrf_token %}
-    <button type="submit" onclick="return confirm('이 개발 도구를 삭제하시겠습니까?');">삭제</button>
-</form>
+<div class="devtool-actions">
+    <a class="button" href="{% url 'devtool_list' %}">목록으로 돌아가기</a>
+    <a class="button" href="{% url 'devtool_edit' devtool.id %}">수정</a>
+    <form action="{% url 'devtool_delete' devtool.id %}" method="post" class="inline-form">
+        {% csrf_token %}
+        <button type="submit" class="button delete" onclick="return confirm('이 개발 도구를 삭제하시겠습니까?');">삭제</button>
+    </form>
+</div>
 {% endblock %}
