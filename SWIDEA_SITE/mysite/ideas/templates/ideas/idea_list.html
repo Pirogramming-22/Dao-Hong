@@ -1,4 +1,5 @@
 {% extends 'ideas/base.html' %}
+{% load static %}
 {% block content %}
 <h1>아이디어 관리</h1>
 <div>
@@ -12,36 +13,84 @@
         <button onclick="changeInterest({{ idea.id }}, 1);">+</button>
         <button onclick="changeInterest({{ idea.id }}, -1);">-</button>
         <!-- Star icon for bookmarking -->
-        <span onclick="toggleStar({{ idea.id }});">
-            {% if idea.is_starred request.user %}
-            <img src="{% static 'images/star_filled.png' %}" alt="Starred">
+        <span id="star_{{ idea.id }}" onclick="toggleStar({{ idea.id }});">
+            {% if idea.starred %}
+            <img src="{% static 'images/star-fill.png' %}" alt="Starred">
             {% else %}
-            <img src="{% static 'images/star_empty.png' %}" alt="Not Starred">
+            <img src="{% static 'images/star-line.png' %}" alt="Not Starred">
             {% endif %}
         </span>
     </div>
     {% endfor %}
 </div>
 <script>
-    function toggleStar(ideaId) {
-        const url = `{% url 'toggle_star' %}`;
-        fetch(url, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'X-CSRFToken': '{{ csrf_token }}'
-            },
-            body: JSON.stringify({ idea_id: ideaId })
-        })
-        .then(response => response.json())
-        .then(data => {
-            const starImage = document.querySelector(`#star_${ideaId}`);
-            if (data.starred) {
-                starImage.src = "{% static 'images/star_filled.png' %}";
-            } else {
-                starImage.src = "{% static 'images/star_empty.png' %}";
-            }
-        })
-        .catch(error => console.error('Error:', error));
+function toggleStar(ideaId) {
+const url = `{% url 'toggle_star' %}`;
+
+// POST 요청을 보내는 fetch 함수
+fetch(url, {
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/json',
+        'X-CSRFToken': '{{ csrf_token }}'
+    },
+    body: JSON.stringify({ idea_id: ideaId })
+})
+.then(response => {
+    if (!response.ok) {
+        throw new Error('Network response was not ok');
     }
+    return response.json();  // 서버로부터 반환된 JSON 응답을 파싱합니다.
+})
+.then(data => {
+    const starImage = document.getElementById(`star_${ideaId}`);
+    if (data.starred) {
+        starImage.src = "{% static 'images/star_filled.png' %}";
+    } else {
+        starImage.src = "{% static 'images/star_empty.png' %}";
+    }
+})
+.catch(error => {
+    console.error('Error:', error);
+});
+}
+function changeInterest(ideaId, delta) {
+    const url = `{% url 'idea_change_interest' %}`;
+    fetch(url, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': '{{ csrf_token }}'
+        },
+        body: JSON.stringify({ id: ideaId, delta: delta })
+    })
+    .then(response => response.json())
+    .then(data => {
+        document.getElementById(`interest_${ideaId}`).innerText = data.new_interest;
+    })
+    .catch(error => console.error('Error:', error));
+}
+
+function toggleStar(ideaId) {
+    const url = `{% url 'toggle_star' %}`;
+    fetch(url, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': '{{ csrf_token }}'
+        },
+        body: JSON.stringify({ idea_id: ideaId })
+    })
+    .then(response => response.json())
+    .then(data => {
+        const starImage = document.getElementById(`star_${ideaId}`);
+        if (data.starred) {
+            starImage.src = "{% static 'images/star_filled.png' %}";
+        } else {
+            starImage.src = "{% static 'images/star_empty.png' %}";
+        }
+    })
+    .catch(error => console.error('Error:', error));
+}
 </script>
+{% endblock %}

@@ -1,10 +1,12 @@
+import json
 from django.shortcuts import render, get_object_or_404, redirect
 from .models import Idea, DevTool
 from django.views.decorators.http import require_POST
 from .forms import IdeaForm, DevToolForm
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
-
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth import login, authenticate
 
 from django.shortcuts import render, redirect
 from django.contrib.auth import login, authenticate
@@ -38,8 +40,11 @@ def user_login(request):
         form = LoginForm()
     return render(request, 'registration/login.html', {'form': form})
 
+@login_required
 def idea_list(request):
     ideas = Idea.objects.all()
+    for idea in ideas:
+        idea.starred = idea.is_starred(request.user)
     return render(request, 'ideas/idea_list.html', {'ideas': ideas})
 
 def idea_new(request):
@@ -121,13 +126,16 @@ def change_interest(request):
 @require_POST
 def toggle_star(request):
     data = json.loads(request.body)
-    idea_id = data.get('idea_id')
-    idea = get_object_or_404(Idea, pk=idea_id)
-    starred, created = IdeaStar.objects.get_or_create(user=request.user, idea=idea)
-    if not created:
-        starred.starred = not starred.starred
-        starred.save()
-    return JsonResponse({'starred': starred.starred})
+    idea_id = data['idea_id']
+    idea = Idea.objects.get(id=idea_id)
+    # is_starred 메서드로 상태 확인 후 처리
+    currently_starred = idea.is_starred(request.user)
+    # 새로운 상태를 반대로 설정
+    new_starred_status = not currently_starred
+    # 관련 데이터를 업데이트하는 로직 필요
+    # 예: IdeaStar 모델 인스턴스의 starred 속성을 업데이트
+    # idea.ideastar_set.update_or_create(user=request.user, defaults={'starred': new_starred_status})
+    return JsonResponse({'starred': new_starred_status})
 
 
 

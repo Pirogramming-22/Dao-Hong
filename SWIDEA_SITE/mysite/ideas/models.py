@@ -14,8 +14,8 @@ class Idea(models.Model):
         return self.ideastar_set.filter(user=user, starred=True).exists()
 
 class IdeaStar(models.Model):
-    idea = models.ForeignKey(Idea, on_delete=models.CASCADE)
-    user = models.ForeignKey('auth.User', on_delete=models.CASCADE)
+    user = models.ForeignKey('auth.User', on_delete=models.CASCADE, null=True)
+    idea = models.ForeignKey('Idea', on_delete=models.CASCADE)
     starred = models.BooleanField(default=False)
 
 class DevTool(models.Model):
