@@ -1,0 +1,47 @@
+{% extends 'ideas/base.html' %}
+{% block content %}
+<h1>아이디어 관리</h1>
+<div>
+    {% for idea in ideas %}
+    <div>
+        <img src="{{ idea.image.url }}" alt="{{ idea.title }}" style="width: 100px; height: auto;">
+        <h2><a href="{% url 'idea_detail' idea.id %}">{{ idea.title }}</a></h2>
+        <p>{{ idea.content }}</p>
+        <p>예상 개발 Tool: {{ idea.devtool.name }}</p>
+        <p>Interest: <span id="interest_{{ idea.id }}">{{ idea.interest }}</span></p>
+        <button onclick="changeInterest({{ idea.id }}, 1);">+</button>
+        <button onclick="changeInterest({{ idea.id }}, -1);">-</button>
+        <!-- Star icon for bookmarking -->
+        <span onclick="toggleStar({{ idea.id }});">
+            {% if idea.is_starred request.user %}
+            <img src="{% static 'images/star_filled.png' %}" alt="Starred">
+            {% else %}
+            <img src="{% static 'images/star_empty.png' %}" alt="Not Starred">
+            {% endif %}
+        </span>
+    </div>
+    {% endfor %}
+</div>
+<script>
+    function toggleStar(ideaId) {
+        const url = `{% url 'toggle_star' %}`;
+        fetch(url, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': '{{ csrf_token }}'
+            },
+            body: JSON.stringify({ idea_id: ideaId })
+        })
+        .then(response => response.json())
+        .then(data => {
+            const starImage = document.querySelector(`#star_${ideaId}`);
+            if (data.starred) {
+                starImage.src = "{% static 'images/star_filled.png' %}";
+            } else {
+                starImage.src = "{% static 'images/star_empty.png' %}";
+            }
+        })
+        .catch(error => console.error('Error:', error));
+    }
+</script>

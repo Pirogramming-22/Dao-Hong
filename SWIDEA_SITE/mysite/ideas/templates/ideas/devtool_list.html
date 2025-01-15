@@ -1,0 +1,14 @@
+{% extends 'ideas/base.html' %}
+{% block content %}
+<h1>개발 툴 관리</h1>
+<div>
+    {% for tool in devtools %}
+    <div>
+        <h2><a href="{% url 'devtool_detail' tool.id %}">{{ tool.name }}</a></h2>
+        <p>{{ tool.kind }} - {{ tool.content }}</p>
+    </div>
+    {% empty %}
+    <p>등록된 개발 툴이 없습니다.</p>
+    {% endfor %}
+</div>
+{% endblock %}
