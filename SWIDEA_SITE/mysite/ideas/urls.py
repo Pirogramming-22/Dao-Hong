@@ -20,6 +20,8 @@ urlpatterns = [
     path('toggle-star/', views.toggle_star, name='toggle_star'),
     path('signup/', views.signup, name='signup'),
     path('login/', views.user_login, name='login'),
+    path('ideas/', views.idea_list, name='idea_list'),
+    path('search/', views.idea_search, name='idea_search'),
 ]
 
 

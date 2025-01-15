@@ -12,6 +12,13 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import login, authenticate
 from .forms import SignUpForm
 
+from django.core.paginator import Paginator
+from django.shortcuts import render
+from .models import Idea
+
+from django.http import JsonResponse
+from .models import Idea
+
 def signup(request):
     if request.method == 'POST':
         form = SignUpForm(request.POST)
@@ -137,5 +144,28 @@ def toggle_star(request):
     # idea.ideastar_set.update_or_create(user=request.user, defaults={'starred': new_starred_status})
     return JsonResponse({'starred': new_starred_status})
 
+def idea_list(request):
+    # 정렬 기준 가져오기
+    sort_by = request.GET.get('sort_by')
+    if sort_by == 'interest':
+        ideas = Idea.objects.all().order_by('-interest')
+    elif sort_by == 'devtool':
+        ideas = Idea.objects.all().order_by('devtool__name')
+    else:
+        ideas = Idea.objects.all().order_by('title')
+    
+    # 페이지네이터 설정
+    paginator = Paginator(ideas, 4)  # 한 페이지에 4개씩 보여줌
+    page_number = request.GET.get('page', 1)
+    page_obj = paginator.get_page(page_number)
+    
+    return render(request, 'ideas/idea_list.html', {
+        'page_obj': page_obj,
+        'sort_by': sort_by,  # 현재 정렬 기준을 템플릿에 전달
+    })
 
-
+def idea_search(request):
+    query = request.GET.get('q', '')  # 검색어 가져오기
+    results = Idea.objects.filter(title__icontains=query)  # 제목에 검색어가 포함된 결과 필터링
+    data = [{'id': idea.id, 'title': idea.title, 'content': idea.content} for idea in results]
+    return JsonResponse({'results': data})
