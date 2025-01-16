@@ -1,0 +1,9 @@
+{% extends 'ideas/base.html' %}
+{% block content %}
+<h1>개발 툴 수정</h1>
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">수정</button>
+</form>
+{% endblock %}

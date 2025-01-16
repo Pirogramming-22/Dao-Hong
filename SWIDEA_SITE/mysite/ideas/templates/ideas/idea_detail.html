@@ -1,0 +1,20 @@
+{% extends 'ideas/base.html' %}
+{% block content %}
+<h1>{{ idea.title }}</h1>
+<div class="idea-details">
+    <div class="idea-image">
+        <img src="{{ idea.image.url }}" alt="{{ idea.title }}">
+    </div>
+    <div class="idea-content">
+        <p>{{ idea.content }}</p>
+    </div>
+</div>
+<div class="idea-actions">
+    <a class="button" href="{% url 'idea_list' %}">돌아가기</a>
+    <a class="button" href="{% url 'idea_edit' idea.id %}">수정</a>
+    <form action="{% url 'idea_delete' idea.id %}" method="post" class="inline-form">
+        {% csrf_token %}
+        <button type="submit" class="button delete" onclick="return confirm('이 아이디어를 삭제하시겠습니까?');">삭제</button>
+    </form>
+</div>
+{% endblock %}
