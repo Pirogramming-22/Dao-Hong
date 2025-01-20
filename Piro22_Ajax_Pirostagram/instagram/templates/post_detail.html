@@ -1,0 +1,157 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Post Detail</title>
+  <link rel="stylesheet" href="{% static 'css/reset.css' %}"/>
+  <link rel="stylesheet" href="{% static 'css/styles/layout.css' %}" />
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+<div class="post-detail-container" style="display:flex; height:100vh;">
+  <div class="images-section" style="flex:1; display:flex; justify-content:center; align-items:center; position:relative;">
+    <div id="carousel" style="width: 80%; height: 80%; overflow: hidden; position: relative;">
+      {% for img in images %}
+        <img src="{{ img.image.url }}" class="slide" style="display: {% if forloop.first %}block{% else %}none{% endif %}; width:100%; height:auto;">
+      {% endfor %}
+    </div>
+
+    <button id="prevBtn" style="position:absolute; left:10px;">Prev</button>
+    <button id="nextBtn" style="position:absolute; right:10px;">Next</button>
+  </div>
+
+  <div class="info-section" style="flex:1; padding:20px; background-color:#fff; color:#000; overflow-y:scroll;">
+    <h2>{{ post.user.username }}'s Post</h2>
+    <p>{{ post.caption }}</p>
+    <hr>
+    <div id="likeSection">
+      <button id="likeBtn">{% if liked %}Unlike{% else %}Like{% endif %}</button>
+      <span id="likeCount">{{ post.likes.count }}</span> likes
+    </div>
+
+    <hr>
+    <ul id="commentList">
+      {% for comment in comments %}
+        <li>
+          <strong>{{ comment.user.username }}</strong>: {{ comment.content }}
+          <button class="replyBtn" data-id="{{ comment.id }}">답글</button>
+          {% if user == comment.user or user == post.user %}
+            <button class="deleteCommentBtn" data-id="{{ comment.id }}">삭제</button>
+          {% endif %}
+
+          <ul>
+            {% for reply in comment.replies.all %}
+              <li>
+                <strong>{{ reply.user.username }}</strong>: {{ reply.content }}
+                <button class="replyBtn" data-id="{{ reply.id }}">답글</button>
+                {% if user == reply.user or user == post.user %}
+                  <button class="deleteCommentBtn" data-id="{{ reply.id }}">삭제</button>
+                {% endif %}
+              </li>
+            {% endfor %}
+          </ul>
+        </li>
+      {% endfor %}
+    </ul>
+
+    <textarea id="commentContent" cols="30" rows="3" placeholder="댓글을 입력하세요..."></textarea>
+    <button id="submitComment" data-parent="">등록</button>
+  </div>
+</div>
+
+<script>
+  const slides = document.querySelectorAll('.slide');
+  let current = 0;
+  
+  function showSlide(idx) {
+    slides.forEach((s, i) => {
+      s.style.display = (i===idx) ? 'block' : 'none';
+    });
+  }
+
+  document.getElementById('prevBtn').addEventListener('click', function(){
+    current = (current <= 0) ? slides.length-1 : current-1;
+    showSlide(current);
+  });
+  document.getElementById('nextBtn').addEventListener('click', function(){
+    current = (current+1) % slides.length;
+    showSlide(current);
+  });
+
+  showSlide(current);
+
+  document.getElementById('likeBtn').addEventListener('click', function() {
+    fetch("{% url 'toggle_like' %}", {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+      },
+      body: `post_id={{ post.id }}&csrfmiddlewaretoken={{ csrf_token }}`
+    })
+    .then(res => res.json())
+    .then(data => {
+      document.getElementById('likeBtn').textContent = data.liked ? 'Unlike' : 'Like';
+      document.getElementById('likeCount').textContent = data.like_count;
+    });
+  });
+
+  document.getElementById('submitComment').addEventListener('click', function() {
+    const parentId = this.getAttribute('data-parent');
+    const content = document.getElementById('commentContent').value;
+    
+    fetch("{% url 'add_comment' %}", {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+      },
+      body: `post_id={{ post.id }}&content=${encodeURIComponent(content)}&parent_id=${parentId}&csrfmiddlewaretoken={{ csrf_token }}`
+    })
+    .then(res => res.json())
+    .then(data => {
+      if(data.status === 'ok') {
+        alert("댓글이 등록되었습니다.");
+        location.reload();
+      }
+    });
+  });
+
+  document.querySelectorAll('.replyBtn').forEach(button => {
+    button.addEventListener('click', function() {
+      const commentId = this.getAttribute('data-id');
+      document.getElementById('submitComment').setAttribute('data-parent', commentId);
+      document.getElementById('commentContent').focus();
+    });
+  });
+
+  document.querySelectorAll('.deleteCommentBtn').forEach(button => {
+    button.addEventListener('click', function() {
+      if(!confirm('정말 삭제하시겠습니까?')) return;
+      
+      const commentId = this.getAttribute('data-id');
+      
+      fetch("{% url 'delete_comment' %}", {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body: `comment_id=${commentId}&csrfmiddlewaretoken={{ csrf_token }}`
+      })
+      .then(res => res.json())
+      .then(data => {
+        if(data.status === 'ok') {
+          location.reload();
+        }
+      })
+      .catch(error => {
+        if(error.status === 403) {
+          alert('삭제 권한이 없습니다.');
+        } else {
+          alert('오류가 발생했습니다.');
+        }
+      });
+    });
+  });
+</script>
+</body>
+</html>

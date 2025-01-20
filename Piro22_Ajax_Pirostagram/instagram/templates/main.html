@@ -1,0 +1,204 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="{% static 'css/reset.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/styles/layout.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/styles/header.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/styles/profile.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/styles/userInfo.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/styles/highlights.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/styles/posts.css' %}" />
+    <title>Main Page</title>
+  </head>
+  <body>
+    <div class="container">
+      <header class="header" style="position: relative;">
+        <button class="header__goBackButton">
+          <img src="{% static 'assets/icons/goBack.svg' %}" alt="뒤로 가기 버튼" />
+        </button>
+        <div class="header__username">Pirogramming</div>
+        <div class="header__rightButtons">
+          <input
+            type="text"
+            id="searchInput"
+            placeholder="Search..."
+            style="margin-right:10px;"
+          />
+          <button class="header__alarmButton">
+            <img src="{% static 'assets/icons/alarm.svg' %}" alt="알림 열기 버튼" />
+          </button>
+          <button class="header__moreButton">
+            <img src="{% static 'assets/icons/more.svg' %}" alt="더보기 열기 버튼" />
+          </button>
+        </div>
+
+        <div
+          id="searchResults"
+          style="
+            display: none;
+            position: absolute;
+            top: 60px;
+            right: 0px;
+            width: 270px;
+            background: #fff;
+            border: 1px solid #ccc;
+            color: #000;
+            z-index: 999;
+          "
+        >
+        </div>
+      </header>
+
+      <main>
+        <a href="{% url 'create_post' %}" class="create-post-button">새 게시글 작성</a>
+        <div style="margin: 10px;">
+          <a href="?sort=recent" style="margin-right: 10px;">최신순</a>
+          <a href="?sort=old">오래된 순</a>
+        </div>
+        <header class="header">
+          <div class="header__username">
+            {% if user.is_authenticated %}
+              <span>Welcome, {{ user.username }}</span>
+              <a href="{% url 'logout' %}">Logout</a>
+            {% else %}
+              <a href="{% url 'login' %}">Login</a> | 
+              <a href="{% url 'register' %}">Register</a>
+            {% endif %}
+          </div>
+        </header>
+
+        <section class="profile">
+          <div class="profile__image">
+            <img src="{% static 'assets/images/profilePicture.png' %}" alt="프로필 사진" />
+          </div>
+          <div class="profile__data">
+            <div class="profile__data-item">
+              <div class="profile__data-number">123</div>
+              <div class="profile__data-type">Posts</div>
+            </div>
+            <div class="profile__data-item">
+              <div class="profile__data-number">123</div>
+              <div class="profile__data-type">Followers</div>
+            </div>
+            <div class="profile__data-item">
+              <div class="profile__data-number">123</div>
+              <div class="profile__data-type">Following</div>
+            </div>
+          </div>
+        </section>
+
+        <section class="userInfo">
+          <div>
+            <div class="userInfo__username">Pirogramming</div>
+            <div class="userInfo__category">컴퓨터 회사</div>
+            <div class="userInfo__description">
+              프로그래밍의 첫 걸음, 피로그래밍
+            </div>
+          </div>
+          <button class="userInfo__follow">Follow</button>
+        </section>
+
+        <aside class="highlights">
+          <div class="highlights__item">
+            <button class="highlights__item-image">
+              <img
+                src="{% static 'assets/images/profilePicture.png' %}"
+                alt="하이라이트 보기"
+              />
+            </button>
+            <div class="highlights_item-title">Title</div>
+          </div>
+        </aside>
+
+        <section class="posts">
+          <nav class="posts__tabBar">
+            <div class="posts__tab posts__tab--selected">Posts</div>
+            <div class="posts__tab">Tagged</div>
+            <div class="posts__tab">Reels</div>
+          </nav>
+          <article class="posts__contents">
+            {% for post in posts %}
+            <div class="posts__photo">
+              {% if post.images.first %}
+                <a href="{% url 'post_detail' post.id %}">
+                  <img
+                    src="{{ post.images.first.image.url }}"
+                    alt="게시글 대표 이미지"
+                  />
+                </a>
+              {% else %}
+                <a href="{% url 'post_detail' post.id %}">
+                  <img
+                    src="https://via.placeholder.com/200x200?text=No+Image"
+                    alt="no image"
+                  />
+                </a>
+              {% endif %}
+            </div>
+            {% endfor %}
+          </article>
+        </section>
+      </main>
+    </div>
+
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        const searchInput = document.getElementById('searchInput');
+        const searchResults = document.getElementById('searchResults');
+
+        searchInput.addEventListener('keyup', function() {
+          const query = searchInput.value.trim();
+          if (query.length > 0) {
+            const url = "{% url 'search_posts' %}?q=" + encodeURIComponent(query);
+
+            fetch(url)
+              .then(response => {
+                if (!response.ok) {
+                  throw new Error('Network response was not ok');
+                }
+                return response.json();
+              })
+              .then(data => {
+                const results = data.results;
+                let htmlContent = '';
+
+                if (results.length === 0) {
+                  htmlContent = '<div style="padding:8px;">검색 결과가 없습니다.</div>';
+                } else {
+                  results.forEach(item => {
+                    htmlContent += `
+                      <div style="border-bottom:1px solid #ccc; padding:8px;">
+                        <a href="/post/${item.post_id}" style="display:flex; align-items:center; text-decoration:none; color:#000;">
+                          <img src="${item.image_url}" alt="검색이미지" style="width:40px; height:40px; object-fit:cover; margin-right:8px;" />
+                          <div>
+                            <div><strong>${item.username}</strong></div>
+                            <div style="font-size:12px; color:#555;">${item.caption}</div>
+                          </div>
+                        </a>
+                      </div>
+                    `;
+                  });
+                }
+                searchResults.innerHTML = htmlContent;
+                searchResults.style.display = 'block';
+              })
+              .catch(error => {
+                console.log('Fetch error:', error);
+              });
+          } else {
+            searchResults.style.display = 'none';
+          }
+        });
+
+        document.addEventListener('click', function(e) {
+          if (!e.target.closest('#searchInput') && !e.target.closest('#searchResults')) {
+            searchResults.style.display = 'none';
+          }
+        });
+      });
+    </script>
+  </body>
+</html>

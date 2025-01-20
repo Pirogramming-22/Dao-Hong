@@ -1,0 +1,35 @@
+.profile {
+  display: flex;
+  padding: 0 var(--gutter);
+  align-items: center;
+}
+
+.profile__image {
+  width: 9rem;
+  height: 9rem;
+  border-radius: 50%;
+  background: linear-gradient(90deg, #c913b9 0%, #f9373f 50%, #fecd00 100%);
+  overflow: hidden;
+  padding: 4px;
+}
+
+.profile__image > img {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.profile__data {
+  font-size: var(--body);
+  display: flex;
+  margin-left: auto;
+  gap: var(--padding);
+  padding-right: var(--padding);
+  text-align: center;
+}
+
+.profile__data-type {
+  font-weight: bold;
+  margin-top: 2px;
+}

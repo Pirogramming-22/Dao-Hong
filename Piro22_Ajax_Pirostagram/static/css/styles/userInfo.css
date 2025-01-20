@@ -1,0 +1,19 @@
+.userInfo {
+  display: flex;
+  flex-direction: column;
+  font-size: var(--body);
+  padding: var(--padding) var(--gutter);
+  gap: var(--padding);
+}
+
+.userInfo__category {
+  opacity: 0.5;
+  margin-block: 6px;
+}
+
+.userInfo__follow {
+  background-color: var(--blue);
+  color: white;
+  border-radius: 4px;
+  padding-block: var(--padding-sm);
+}
