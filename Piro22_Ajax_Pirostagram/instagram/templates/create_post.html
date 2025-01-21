@@ -1,0 +1,44 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <title>Create Post</title>
+  <link rel="stylesheet" href="{% static 'css/reset.css' %}"/>
+</head>
+<body>
+  <h1>새 게시글 작성</h1>
+
+  {% if form.errors %}
+    <div style="color: red;">
+      {{ form.errors }}
+    </div>
+  {% endif %}
+
+  <form method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    
+    <div>
+      {{ form.caption.label_tag }}
+      {{ form.caption }}
+      {{ form.caption.errors }}
+    </div>
+
+    <div>
+      {{ form.images.label_tag }}
+      {{ form.images }}
+      {{ form.images.errors }}
+      <small>{{ form.images.help_text }}</small>
+    </div>
+
+    <button type="submit">게시</button>
+  </form>
+
+  <script>
+    document.querySelector('input[type="file"]').addEventListener('change', function(e) {
+      console.log('Selected files:', this.files);
+      console.log('Input name:', this.name);
+    });
+  </script>
+</body>
+</html>

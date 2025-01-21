@@ -1,0 +1,25 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--padding) var(--gutter);
+}
+
+.header__rightButtons {
+  display: flex;
+  gap: var(--padding);
+}
+
+.header__username {
+  font-size: var(--heading);
+}
+.header__username a {
+  color: #1fa1ff;
+  text-decoration: none;
+  margin-right: 10px;
+  font-weight: bold;
+}
+
+.header__username a:hover {
+  text-decoration: underline;
+}

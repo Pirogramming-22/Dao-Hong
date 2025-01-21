@@ -1,0 +1,32 @@
+/* tab bar */
+.posts__tabBar {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.posts__tab {
+  font-size: var(--heading);
+  text-align: center;
+  padding: var(--padding);
+}
+
+.posts__tab--selected {
+  border-bottom: 1px solid white;
+}
+
+/* contents */
+.posts__contents {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 3px;
+}
+
+.posts__photo {
+  aspect-ratio: 1 / 1;
+}
+
+.posts__photo > img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
